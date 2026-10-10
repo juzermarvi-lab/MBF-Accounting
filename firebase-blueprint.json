@@ -1,0 +1,112 @@
+{
+  "entities": {
+    "Business": {
+      "title": "Business",
+      "description": "Independent business company entity storing complete double-entry accounting ledgers and transactions",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier of the business entity"
+        },
+        "name": {
+          "type": "string",
+          "description": "Trading name of the business",
+          "maxLength": 128
+        },
+        "sector": {
+          "type": "string",
+          "description": "Industry sector of the business",
+          "maxLength": 128
+        },
+        "currency": {
+          "type": "object",
+          "description": "Operating currency configuration"
+        },
+        "businessDetails": {
+          "type": "object",
+          "description": "Business legal profile, contact info, and registration details"
+        },
+        "summarySettings": {
+          "type": "object",
+          "description": "Period and accounting method settings"
+        },
+        "enabledTabs": {
+          "type": "array",
+          "description": "Enabled navigation modules"
+        },
+        "chartOfAccounts": {
+          "type": "array",
+          "description": "Chart of accounts ledger entries"
+        },
+        "taxCodes": {
+          "type": "array",
+          "description": "Tax codes and rate specifications"
+        },
+        "bankAccounts": {
+          "type": "array",
+          "description": "Bank and cash accounts"
+        },
+        "receipts": {
+          "type": "array",
+          "description": "Money in receipt transactions"
+        },
+        "payments": {
+          "type": "array",
+          "description": "Money out payment transactions"
+        },
+        "transfers": {
+          "type": "array",
+          "description": "Inter-account bank transfers"
+        },
+        "customers": {
+          "type": "array",
+          "description": "Customer accounts and receivables"
+        },
+        "suppliers": {
+          "type": "array",
+          "description": "Supplier accounts and payables"
+        },
+        "inventoryItems": {
+          "type": "array",
+          "description": "Product inventory and stock items"
+        },
+        "salesInvoices": {
+          "type": "array",
+          "description": "Sales invoices billed to customers"
+        },
+        "purchaseInvoices": {
+          "type": "array",
+          "description": "Purchase bills from suppliers"
+        },
+        "auditHistory": {
+          "type": "array",
+          "description": "Audit trail log records"
+        },
+        "users": {
+          "type": "array",
+          "description": "Configured users and access roles"
+        },
+        "activeSessions": {
+          "type": "array",
+          "description": "Active device sessions"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "ISO timestamp of last update"
+        },
+        "updatedBy": {
+          "type": "string",
+          "description": "User identifier who performed the update"
+        }
+      },
+      "required": ["id", "name"]
+    }
+  },
+  "firestore": {
+    "/businesses/{businessId}": {
+      "schema": "Business",
+      "description": "Collection of business accounts and ledgers for live multi-user real-time synchronization"
+    }
+  }
+}

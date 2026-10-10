@@ -1,0 +1,8 @@
+{
+  "name": "Remix MBF Business \u0026 Accounting System",
+  "description": "Comprehensive financial accounting and inventory management platform for MBF Frozen Food, featuring double-entry ledgers, invoicing, receipts, payments, bank balances, and financial reporting.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

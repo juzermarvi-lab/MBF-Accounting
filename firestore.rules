@@ -1,0 +1,46 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Global Default Deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isValidBusiness(data) {
+      return data.id is string && data.id.size() > 0 && data.id.size() <= 128 &&
+             data.name is string && data.name.size() > 0 && data.name.size() <= 128;
+    }
+
+    match /businesses/{businessId} {
+      // Authenticated team members can read business data in real-time
+      allow read: if isSignedIn() && isValidId(businessId);
+
+      // Authenticated users can create new businesses
+      allow create: if isSignedIn() && isValidId(businessId) &&
+                    isValidBusiness(incoming()) && incoming().id == businessId;
+
+      // Authenticated users can live-sync and update business records
+      allow update: if isSignedIn() && isValidId(businessId) &&
+                    isValidBusiness(incoming()) && incoming().id == existing().id;
+
+      // Authenticated users can remove business entities
+      allow delete: if isSignedIn() && isValidId(businessId);
+    }
+  }
+}
